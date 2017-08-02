@@ -1,0 +1,59 @@
+<script>
+
+
+</script>
+
+<html>
+
+<head>
+  <title>Blue Green Deployment - Downtime Checker</title>
+  <meta charset="utf-8">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+  <link href="https://bootswatch.com/yeti/bootstrap.min.css" rel="stylesheet">
+  <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+  <script>
+    var num = 0;
+    window.setInterval(function() {
+      num++;
+
+      $.get("responce.php", function() {})
+        .done(function(data) {
+          var receivedData = JSON.parse(data);
+          var status = receivedData["status"];
+          var time = receivedData["time"];
+          $("tbody").append("<tr class='success'><td>" + num + "</td><td>" + status + "</td><td>" + time + "</td></tr>");
+        })
+        .fail(function() {
+          var time = new Date( jQuery . now()) . toLocaleString();
+          $("tbody").append("<tr class='danger'><td>" + num + "</td><td>Error</td><td>" + time + "</td></tr>");
+        });
+    }, 1000);
+
+  </script>
+</head>
+
+<body>
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-8 col-md-7 col-sm-6">
+        <h1>Downtime Checker</h1>
+        <p class="lead">Blue Green Deployment</p>
+
+        <table class="table table-striped table-hover">
+          <thead>
+            <tr>
+              <th>#</th>
+              <th>Status</th>
+              <th>Time</th>
+            </tr>
+          </thead>
+          <tbody>
+          </tbody>
+        </table>
+        
+      </div>
+    </div>
+  </div>
+</body>
+
+</html>
