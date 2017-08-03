@@ -20,12 +20,16 @@
         .done(function(data) {
           var receivedData = JSON.parse(data);
           var status = receivedData["status"];
+          var date = receivedData["date"];
           var time = receivedData["time"];
-          $("tbody").append("<tr class='success'><td>" + num + "</td><td>" + status + "</td><td>" + time + "</td></tr>");
+          $("tbody").append("<tr class='success'><td>" + num + "</td><td>" + status + "</td><td>" + date + "</td></tr>" + time + "</td></tr>");
         })
         .fail(function() {
-          var time = new Date( jQuery . now()) . toLocaleString();
-          $("tbody").append("<tr class='danger'><td>" + num + "</td><td>Error</td><td>" + time + "</td></tr>");
+//          var time = new Date( jQuery . now()) . toLocaleString();
+          var dt = new Date();
+          var date = getFullYear() + "/0" + getMonth() + 1 + "/" + getDate();
+          var time = dt.getHours() + ":" + dt.getMinutes() + ":" + dt.getSeconds();
+          $("tbody").append("<tr class='danger'><td>" + num + "</td><td>Error</td><td>" + date + "</td></tr>" + time + "</td></tr>");
         });
     }, 1000);
 
@@ -35,7 +39,7 @@
 <body>
   <div class="container">
     <div class="row">
-      <div class="col-lg-8 col-md-7 col-sm-6">
+      <div class="col-lg-7 col-md-7 col-sm-6">
         <h1>Downtime Checker</h1>
         <p class="lead">Blue Green Deployment</p>
 
@@ -44,6 +48,7 @@
             <tr>
               <th>#</th>
               <th>Status</th>
+              <th>Date</th>
               <th>Time</th>
             </tr>
           </thead>
